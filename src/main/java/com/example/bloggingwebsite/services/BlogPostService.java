@@ -40,7 +40,7 @@ public class BlogPostService {
         // Get current authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
-        User currentUser = userRepository.findByUsernameOrEmail(currentUsername, currentUsername)
+        User currentUser = userRepository.findByUsername(currentUsername)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         
         blogPost.setUser(currentUser);

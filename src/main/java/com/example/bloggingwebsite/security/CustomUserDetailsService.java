@@ -28,12 +28,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        logger.debug("Loading user by username or email: {}", usernameOrEmail);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.debug("Loading user by username: {}", username);
         try {
-            User user = userRepository.findByUsername(usernameOrEmail)
+            User user = userRepository.findByUsername(username)
                     .orElseThrow(() ->
-                            new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
+                            new UsernameNotFoundException("User not found with username: " + username));
 
             logger.debug("User found: {}, Password hash: {}", user.getUsername(), user.getPassword());
             logger.debug("User roles: {}", user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.joining(", ")));
